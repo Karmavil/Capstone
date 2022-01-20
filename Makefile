@@ -1,21 +1,19 @@
+SOURCES = $(wildcard src/*.cpp)
+HEADERS = $(wildcard include/*.hpp)
+
 all: format capstone
 
-WARNINGS = -Wall
-DEBUG = -ggdb -fno-omit-frame-pointer
-OPTIMIZE = -O2
+.PHONY: build
+build: clean
+	@mkdir build && cd build && cmake ..
 
-.PHONY: capstone
-capstone:
-	$(CC) -o build/$@ $(WARNINGS) $(DEBUG) $(OPTIMIZE) src/main.cpp
+.PHONY: recompile
+recompile:
+	@cd build && make
 
 .PHONY: clean
 clean:
-	@rm -f build/capstone
-
-.PHONY: install
-# Builder will call this to install the application before running.
-install:
-	@echo "Installing is not supported"
+	@rm -rf build
 
 .PHONY: run
 # Builder uses this target to run your application.
@@ -24,6 +22,6 @@ run:
 
 .PHONY: format
 format:
-	@clang-format -i src/*.cpp
-# @clang-format -i include/*.h
+	@clang-format -i $(SOURCES)
+	@clang-format -i $(HEADERS)
 

@@ -5,7 +5,7 @@ all: format capstone
 
 .PHONY: build
 build: clean
-	@mkdir build && cd build && cmake ..
+	@mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 .PHONY: recompile
 recompile:

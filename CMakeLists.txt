@@ -8,9 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 find_package(glfw3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
 
-add_subdirectory(libs/glad)
-
-include_directories(libs/glad/include)
+add_subdirectory(dependencies/glad)
 
 include_directories(include)
 
@@ -22,4 +20,4 @@ set(
 # Add project executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC glad glfw ${XXX_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC glad glfw)

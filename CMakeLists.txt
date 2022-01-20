@@ -5,8 +5,13 @@ project(capstone)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 
-# find_package(XXX REQUIRED)
-# include_directories(${XXX_INCLUDE_DIRS})
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLFW REQUIRED glfw3)
+include_directories(${GLFW_INCLUDE_DIRS})
+
+# add_subdirectory(libs/glad)
+
+# include_directories(libs/glad/include)
 
 include_directories(include)
 
@@ -18,4 +23,6 @@ set(
 # Add project executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${XXX_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} GLU GL)
+
+install(TARGETS ${PROJECT_NAME} CONFIGURATIONS Debug RUNTIME DESTINATION bin)
